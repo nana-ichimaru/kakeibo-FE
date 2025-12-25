@@ -1,20 +1,11 @@
-import { Box, Container, Heading, HStack, Stack, Text } from '@chakra-ui/react'
+import { Box, Container, HStack, Stack, Text } from '@chakra-ui/react'
 import { CashFlowSummaryCard } from './ui/CashFlowSummaryCard'
+import { Header } from '@/components/organisms/Header'
 
 export const RootPresentational = () => {
   return (
     <>
-      <header>
-        <Box bg={'blue.500'} h={'64px'}>
-          <Container h={'100%'}>
-            <HStack h={'100%'}>
-              <Heading as={'h1'} size={'md'} color={'white'}>
-                KAKEIBO APP
-              </Heading>
-            </HStack>
-          </Container>
-        </Box>
-      </header>
+      <Header />
       <Container>
         <Stack>
           {/* 日付選択カレンダー */}

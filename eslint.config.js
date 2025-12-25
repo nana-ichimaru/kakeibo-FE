@@ -36,6 +36,7 @@ export default defineConfig([
     rules: {
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
+      '@typescript-eslint/consistent-type-definitions': 'off',
     },
   },
 ])
