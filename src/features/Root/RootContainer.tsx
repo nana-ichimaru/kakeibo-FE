@@ -2,7 +2,7 @@ import { RootPresentational } from './RootPresentational'
 
 import { useEffect } from 'react'
 
-import { useGetHealthCheckQuery } from './hooks/queries/useGetHealthCheckQuery'
+import { useGetCashFlowsQuery } from './hooks/queries/useGetCashFlowsQuery'
 
 // RootContainer は「画面のロジックを担当するコンポーネント」
 // - APIデータ取得
@@ -10,7 +10,14 @@ import { useGetHealthCheckQuery } from './hooks/queries/useGetHealthCheckQuery'
 // - 取得結果をUIに渡す
 // などをここで行い、表示は RootPresentational に任せる構造
 export const RootContainer = () => {
+  const { data = [], isSuccess, isFetching} = useGetCashFlowsQuery({target_month: new Date('2025-12-26')})
+  // 取得したdataからtypeがincomeのものだけを取得したい
+  const income = data.filter(item => item.type == 'income' )
 
+  useEffect(() => {
+    console.log(data, isSuccess, isFetching)
+  }, [data, isSuccess, isFetching])
+  
   // useGetHealthCheckQuery() を実行すると、
   // react-query が API取得（queryFn）を開始し、結果や状態が返される
   //
@@ -25,7 +32,7 @@ export const RootContainer = () => {
   // isFetching:
   //   - 「今この瞬間」データ取得が走っているかどうか
   //   - 初回ロードや再取得（refetch）中は true になる
-  const { data, isSuccess, isFetching } = useGetHealthCheckQuery()
+  // const { data, isSuccess, isFetching } = useGetHealthCheckQuery()
 
   // useEffect は「レンダリング後に実行したい処理」を書く場所
   // ここでは data / isSuccess / isFetching が変化したタイミングでログを出して、
@@ -35,9 +42,9 @@ export const RootContainer = () => {
   // - [data, isSuccess, isFetching] に入れた値が変わったときに、この useEffect が再実行される
   // - react-query は通信状況に応じて data / 状態フラグを更新するため、
   //   その更新を検知してログに出すには依存配列に入れる必要がある
-  useEffect(() => {
-    console.log(data, isSuccess, isFetching)
-  }, [data, isSuccess, isFetching])
+  // useEffect(() => {
+  //   console.log(data, isSuccess, isFetching)
+  // }, [data, isSuccess, isFetching])
 
   // return で RootPresentational を描画する
   // - RootContainer は主にロジック（API取得や状態管理）を担当

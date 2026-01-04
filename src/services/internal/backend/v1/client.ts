@@ -1,10 +1,11 @@
 import { createBaseClient } from "@/services/base/httpClientFactory";
+import { envConnectionConfig } from "@/core/connection";
 
 // internal backend API を呼ぶための共通クライアントを作成する
 const client = createBaseClient({
   // APIの共通のURL（これが土台になる）
   // client.get("/health-check") → http://localhost:8000/api/v1/health-check にアクセスする
-  baseURL: "http://localhost:8000/api/v1",
+  baseURL: `${envConnectionConfig.VITE_BE_BASE_URL}/api/v1`,
 
   // Cookieなどの認証情報をリクエストに含める設定（ログインが必要なAPIで重要）
   withCredentials: true,
