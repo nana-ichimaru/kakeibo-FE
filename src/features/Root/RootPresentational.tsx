@@ -1,8 +1,13 @@
 import { Box, Container, HStack, Stack, Text } from '@chakra-ui/react'
 import { CashFlowSummaryCard } from './ui/CashFlowSummaryCard'
 import { HEADER_HEIGHT } from '@/share/constants/layout/header'
+interface RootPresentationalProps {
+  totalIncome: number
+  totalExpense: number
+  total: number
+}
 
-export const RootPresentational = () => {
+export const RootPresentational = ({ totalIncome, totalExpense, total }: RootPresentationalProps) => {
   return (
     <>
         {/*  ここでは「画面全体の高さ(100vh) から ヘッダーの高さ(HEADER_HEIGHT) を引いた値」を高さにしている
@@ -15,11 +20,11 @@ export const RootPresentational = () => {
           <Box>日付選択カレンダー</Box>
           {/* 収支計算 */}
           <HStack>
-            <CashFlowSummaryCard title='income' amount={500} />
+            <CashFlowSummaryCard title='income' amount={totalIncome} />
             <Text>-</Text>
-            <CashFlowSummaryCard title='expenses' amount={100} />
+            <CashFlowSummaryCard title='expenses' amount={totalExpense} />
             <Text>=</Text>
-            <CashFlowSummaryCard title='TOTAL' amount={400} />
+            <CashFlowSummaryCard title='TOTAL' amount={total} />
           </HStack>
           {/* 収支新規登録ボタン */}
           <Box>収支新規登録ボタン</Box>

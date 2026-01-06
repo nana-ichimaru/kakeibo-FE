@@ -1,8 +1,7 @@
 import { RootPresentational } from './RootPresentational'
 
-import { useEffect } from 'react'
+import { useGetCashFlowsHandler } from './hooks/handlers/useGetCashFlowsHandler'
 
-import { useGetCashFlowsQuery } from './hooks/queries/useGetCashFlowsQuery'
 
 // RootContainer は「画面のロジックを担当するコンポーネント」
 // - APIデータ取得
@@ -10,13 +9,24 @@ import { useGetCashFlowsQuery } from './hooks/queries/useGetCashFlowsQuery'
 // - 取得結果をUIに渡す
 // などをここで行い、表示は RootPresentational に任せる構造
 export const RootContainer = () => {
-  const { data = [], isSuccess, isFetching} = useGetCashFlowsQuery({target_month: new Date('2025-12-26')})
-  // 取得したdataからtypeがincomeのものだけを取得したい
-  const income = data.filter(item => item.type == 'income' )
+  const { data:cashFlowsData } = useGetCashFlowsHandler()
+  const { summary } = cashFlowsData
+  const { totalIncome, totalExpense, total } = summary
 
-  useEffect(() => {
-    console.log(data, isSuccess, isFetching)
-  }, [data, isSuccess, isFetching])
+  // const { data = [], isSuccess, isFetching} = useGetCashFlowsQuery({target_month: new Date('2025-12-26')})
+  // // 取得したdataからtypeがincomeのものだけを取得したい
+  // const income = data.filter(item => item.type == 'income' )
+  // const totalIncome = income.reduce((result,current) => result + current.amount, 0)
+  // const expense = data.filter(item => item.type == 'expense' )
+  // const totalExpense = expense.reduce((result,current) => result + current.amount, 0)
+  // // 数字ではなく連想配列なので初期値を設置する。０で
+  // // income = [{amount: 1000}, {amount: 2000}]　なら初期値が必要
+  // // income = [1000, 2000]　いらない初期値
+  // const total = totalIncome - totalExpense
+
+  // useEffect(() => {
+  //   console.log(data, isSuccess, isFetching, total)
+  // }, [data, isSuccess, isFetching, total])
   
   // useGetHealthCheckQuery() を実行すると、
   // react-query が API取得（queryFn）を開始し、結果や状態が返される
@@ -51,9 +61,9 @@ export const RootContainer = () => {
   // - RootPresentational は主にUIを担当
   return (
     <>
-      <RootPresentational />
+      <RootPresentational totalIncome={totalIncome} totalExpense={totalExpense} total={total} />
     </>
-  )
+  ) 
 }
 
 // useEffect(() => {}, [] )
