@@ -17,7 +17,9 @@ const mapToCashFlowItemView = (item: GetCashFlowResponseItem):CashFlowItemView =
     type: item.type,
     amount: item.amount,
     title: item.title,
-    recordedAt: item.recordedAt,
+    // 文字列を Date オブジェクトに変換
+    // JSONでは文字列と数字しか扱えないためDate型は文字列で送られてくる
+    recordedAt: new Date(item.recordedAt)
   }
 }
 export const useGetCashFlowsQuery = (params: GetCashFlowRequestQueryParams) => {

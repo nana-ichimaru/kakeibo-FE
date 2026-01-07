@@ -1,8 +1,8 @@
-import { Box, Container, HStack, Stack, Text, Tabs, ButtonGroup, IconButton, Pagination  } from '@chakra-ui/react'
+import { Box, Container, HStack, Stack, Text, Button, CloseButton, Dialog, Portal } from '@chakra-ui/react'
 import { CashFlowSummaryCard } from './ui/CashFlowSummaryCard'
+import { CashFlowsTab } from './ui/CashFlowsTab'
 import { HEADER_HEIGHT } from '@/share/constants/layout/header'
 import type { CashFlowItemView } from './types/CashFlowItemView'
-import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
 interface RootPresentationalProps {
   // 作法
   data: {
@@ -31,47 +31,49 @@ export const RootPresentational = ({ data }: RootPresentationalProps) => {
           {/* 収支計算 */}
           <HStack>
             {/* 消化過程 data.summary.totalIncome*/}
-            <CashFlowSummaryCard title='income' amount={data.summary.totalIncome} />
+            <CashFlowSummaryCard data={{ title: 'income', amount: data.summary.totalIncome }} />
             <Text>-</Text>
-            <CashFlowSummaryCard title='expenses' amount={data.summary.totalExpense} />
+            <CashFlowSummaryCard data={{ title: 'expenses', amount: data.summary.totalExpense }} />
             <Text>=</Text>
-            <CashFlowSummaryCard title='TOTAL' amount={data.summary.total} />
+            <CashFlowSummaryCard data={{ title: 'TOTAL', amount: data.summary.total }} />
           </HStack>
           {/* 収支新規登録ボタン */}
           <Box>収支新規登録ボタン</Box>
           {/* 収支切り替えタブ（収支一覧テーブル表示切り替え） */}
-          <Tabs.Root defaultValue='income' variant='outline'>
-            <Tabs.List>
-              <Tabs.Trigger value='income'>income</Tabs.Trigger>
-              <Tabs.Trigger value='expense'>expense</Tabs.Trigger>
-            </Tabs.List>
-            <Tabs.Content value='income'></Tabs.Content>
-            <Tabs.Content value='expense'></Tabs.Content>
-          </Tabs.Root>
+          <CashFlowsTab data={{ income: data.income, expense: data.expense }} />
         </Stack>
-        <Pagination.Root count={20} pageSize={2} defaultPage={4}>
-          <ButtonGroup variant='ghost' size='sm'>
-            <Pagination.PrevTrigger asChild>
-              <IconButton>
-                <LuChevronLeft />
-              </IconButton>
-            </Pagination.PrevTrigger>
-
-            <Pagination.Items
-              render={(page) => (
-                <IconButton variant={{ base: 'ghost', _selected: 'outline' }}>
-                  {page.value}
-                </IconButton>
-              )}
-            />
-
-            <Pagination.NextTrigger asChild>
-              <IconButton>
-                <LuChevronRight />
-              </IconButton>
-            </Pagination.NextTrigger>
-          </ButtonGroup>
-        </Pagination.Root>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <Button variant='outline' size='sm'>
+              Open Dialog
+            </Button>
+          </Dialog.Trigger>
+          <Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content>
+                <Dialog.Header>
+                  <Dialog.Title>Dialog Title</Dialog.Title>
+                </Dialog.Header>
+                <Dialog.Body>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.
+                  </p>
+                </Dialog.Body>
+                <Dialog.Footer>
+                  <Dialog.ActionTrigger asChild>
+                    <Button variant='outline'>Cancel</Button>
+                  </Dialog.ActionTrigger>
+                  <Button>Save</Button>
+                </Dialog.Footer>
+                <Dialog.CloseTrigger asChild>
+                  <CloseButton size='sm' />
+                </Dialog.CloseTrigger>
+              </Dialog.Content>
+            </Dialog.Positioner>
+          </Portal>
+        </Dialog.Root>
       </Container>
     </>
   )
