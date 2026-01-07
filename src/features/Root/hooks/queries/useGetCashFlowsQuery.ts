@@ -2,10 +2,24 @@ import { useQuery } from '@tanstack/react-query'
 
 import { type GetCashFlowRequestQueryParams } from '@/models/api/internal/v1/request/cashFlow'
 import { getCashFlows } from '@/services/internal/backend/v1/cashFlow'
+import { type CashFlowItemView } from '@/features/Root/types/CashFlowItemView'
+import type { GetCashFlowResponseItem } from '@/models/api/internal/v1/response/cashFlow'
 
 /**
  * キャッシュフロー一覧を取得するためのカスタムフック
  */
+
+// API から取得した生データ（GetCashFlowResponseItem）を
+// UI 表示用のデータ（CashFlowItemView）に変換する関数
+const mapToCashFlowItemView = (item: GetCashFlowResponseItem):CashFlowItemView => {
+  return {
+    id: item.id,
+    type: item.type,
+    amount: item.amount,
+    title: item.title,
+    recordedAt: item.recordedAt,
+  }
+}
 export const useGetCashFlowsQuery = (params: GetCashFlowRequestQueryParams) => {
   return useQuery({
     /**
@@ -20,7 +34,15 @@ export const useGetCashFlowsQuery = (params: GetCashFlowRequestQueryParams) => {
      * React Query は必要なタイミングで queryFn() を実行し、
      * その結果（Promise）をもとに data / isLoading / error などを管理する。
      */
+
     queryFn: () => getCashFlows(params),
+    // 調理場に渡すために水洗いした材料を箱詰めして渡したい
+    // 箱をまず準備したい
+    select: (data) => data.map(item => mapToCashFlowItemView(item)),
+    // data は配列（GetCashFlowResponseItem[]）
+    // map で1つずつ item を取り出して
+    // mapToCashFlowItemView(item) に通して
+    // CashFlowItemView[] に変換して返す
 
     /**
      * queryKey:

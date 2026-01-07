@@ -1,4 +1,4 @@
-import { type CashFlow } from "@/share/types/cashflow"
+import { type CashFlow } from "@/share/types/cashFlow"
 
 export type GetCashFlowResponseItem = {
   id: number

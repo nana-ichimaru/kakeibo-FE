@@ -2,16 +2,15 @@ import { RootPresentational } from './RootPresentational'
 
 import { useGetCashFlowsHandler } from './hooks/handlers/useGetCashFlowsHandler'
 
-
 // RootContainer は「画面のロジックを担当するコンポーネント」
 // - APIデータ取得
 // - 状態管理
 // - 取得結果をUIに渡す
 // などをここで行い、表示は RootPresentational に任せる構造
 export const RootContainer = () => {
-  const { data:cashFlowsData } = useGetCashFlowsHandler()
-  const { summary } = cashFlowsData
-  const { totalIncome, totalExpense, total } = summary
+  // useGetCashFlowsHandler() 調理
+  // data: cashFlowsData　お皿を準備
+  const { data: cashFlowsData } = useGetCashFlowsHandler()
 
   // const { data = [], isSuccess, isFetching} = useGetCashFlowsQuery({target_month: new Date('2025-12-26')})
   // // 取得したdataからtypeがincomeのものだけを取得したい
@@ -27,7 +26,7 @@ export const RootContainer = () => {
   // useEffect(() => {
   //   console.log(data, isSuccess, isFetching, total)
   // }, [data, isSuccess, isFetching, total])
-  
+
   // useGetHealthCheckQuery() を実行すると、
   // react-query が API取得（queryFn）を開始し、結果や状態が返される
   //
@@ -61,21 +60,28 @@ export const RootContainer = () => {
   // - RootPresentational は主にUIを担当
   return (
     <>
-      <RootPresentational totalIncome={totalIncome} totalExpense={totalExpense} total={total} />
+      {/* 実際に食べてるところ */}
+      <RootPresentational
+        data={{
+          income: cashFlowsData.income,
+          expense: cashFlowsData.expense,
+          summary: cashFlowsData.summary,
+        }}
+      />
     </>
-  ) 
+  )
 }
 
 // useEffect(() => {}, [] )
-  // 第二引数に変化があった時に動くのが第一引数
-  // 第二引数に見ておきたいものを入れる、空でも大丈夫(useEffectは、ブラウザを一回開けばまわるため)
+// 第二引数に変化があった時に動くのが第一引数
+// 第二引数に見ておきたいものを入れる、空でも大丈夫(useEffectは、ブラウザを一回開けばまわるため)
 
 // useEffect(() => {
-  //   // await getHealthCheck()
-  //   // useEffectの第一引数にasyncは記述できないため、変数に入れて使用する
-  //   const a = async () => {
-  //     const b = await getHealthCheck()
-  //     console.log(b)
-  //   }
-  //   void a()
-  // }, [])
+//   // await getHealthCheck()
+//   // useEffectの第一引数にasyncは記述できないため、変数に入れて使用する
+//   const a = async () => {
+//     const b = await getHealthCheck()
+//     console.log(b)
+//   }
+//   void a()
+// }, [])
