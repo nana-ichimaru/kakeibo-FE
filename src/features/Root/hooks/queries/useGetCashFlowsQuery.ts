@@ -11,7 +11,7 @@ import type { GetCashFlowResponseItem } from '@/models/api/internal/v1/response/
 
 // API から取得した生データ（GetCashFlowResponseItem）を
 // UI 表示用のデータ（CashFlowItemView）に変換する関数
-const mapToCashFlowItemView = (item: GetCashFlowResponseItem):CashFlowItemView => {
+const mapToCashFlowItemView = (item: GetCashFlowResponseItem): CashFlowItemView => {
   return {
     id: item.id,
     type: item.type,
@@ -19,9 +19,10 @@ const mapToCashFlowItemView = (item: GetCashFlowResponseItem):CashFlowItemView =
     title: item.title,
     // 文字列を Date オブジェクトに変換
     // JSONでは文字列と数字しか扱えないためDate型は文字列で送られてくる
-    recordedAt: new Date(item.recordedAt)
+    recordedAt: new Date(item.recordedAt),
   }
 }
+// 材料を取ってきて調理場に渡す過程
 export const useGetCashFlowsQuery = (params: GetCashFlowRequestQueryParams) => {
   return useQuery({
     /**
@@ -37,10 +38,11 @@ export const useGetCashFlowsQuery = (params: GetCashFlowRequestQueryParams) => {
      * その結果（Promise）をもとに data / isLoading / error などを管理する。
      */
 
+    //実際に材料の取ってき方が書いてあるところ
     queryFn: () => getCashFlows(params),
     // 調理場に渡すために水洗いした材料を箱詰めして渡したい
     // 箱をまず準備したい
-    select: (data) => data.map(item => mapToCashFlowItemView(item)),
+    select: (data) => data.map((item) => mapToCashFlowItemView(item)),
     // data は配列（GetCashFlowResponseItem[]）
     // map で1つずつ item を取り出して
     // mapToCashFlowItemView(item) に通して

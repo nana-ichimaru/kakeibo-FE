@@ -1,10 +1,4 @@
-import {
-  Box,
-  Container,
-  HStack,
-  Stack,
-  Text,
-} from '@chakra-ui/react'
+import { Box, Container, HStack, Stack, Text } from '@chakra-ui/react'
 import { CashFlowSummaryCard } from './ui/CashFlowSummaryCard'
 import { CashFlowsTab } from './ui/CashFlowsTab'
 import { HEADER_HEIGHT } from '@/share/constants/layout/header'
@@ -21,10 +15,13 @@ interface RootPresentationalProps {
       total: number
     }
   }
+  //　戻り値が何もないときはvoidを使う
+  //　関数の型定義
+  handlers: { onSubmitCreateCashFlow: () => void }
 }
 
 //食べたもの　data
-export const RootPresentational = ({ data }: RootPresentationalProps) => {
+export const RootPresentational = ({ data, handlers }: RootPresentationalProps) => {
   return (
     <>
       {/*  ここでは「画面全体の高さ(100vh) から ヘッダーの高さ(HEADER_HEIGHT) を引いた値」を高さにしている
@@ -37,7 +34,7 @@ export const RootPresentational = ({ data }: RootPresentationalProps) => {
           {/* 日付選択カレンダー */}
           <Box>日付選択カレンダー</Box>
           {/* 収支計算 */}
-        {/* 要素を横に並べる */}
+          {/* 要素を横に並べる */}
           <HStack>
             {/* 消化過程 data.summary.totalIncome*/}
             <CashFlowSummaryCard data={{ title: 'income', amount: data.summary.totalIncome }} />
@@ -50,7 +47,9 @@ export const RootPresentational = ({ data }: RootPresentationalProps) => {
           {/* chakrauiのBoxタグはHTMLでいうdivタグ */}
           {/* Stackの直下に置かれたタグは横幅が広がるため、Boxタグを使用してDialogタグを直下に置かないようにする */}
           <Box>
-            <CashFlowCreateDialog />
+            <CashFlowCreateDialog
+              handlers={{ onSubmitCreateCashFlow: handlers.onSubmitCreateCashFlow }}
+            />
           </Box>
           {/* 収支切り替えタブ（収支一覧テーブル表示切り替え） */}
           <CashFlowsTab data={{ income: data.income, expense: data.expense }} />

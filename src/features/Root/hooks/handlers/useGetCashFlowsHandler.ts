@@ -1,5 +1,6 @@
 import { useGetCashFlowsQuery } from '../queries/useGetCashFlowsQuery'
 
+// useQueryの場合は実際に叩いたデータを用意できます
 export const useGetCashFlowsHandler = () => {
   const {
     // APIの結果がまだ入っていない（undefined）場合でも

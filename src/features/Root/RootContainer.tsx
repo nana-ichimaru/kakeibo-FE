@@ -1,7 +1,7 @@
 import { RootPresentational } from './RootPresentational'
 
 import { useGetCashFlowsHandler } from './hooks/handlers/useGetCashFlowsHandler'
-
+import { useCreateCashFlowHandler } from './hooks/handlers/useCreateCashFlowsHandler'
 // RootContainer は「画面のロジックを担当するコンポーネント」
 // - APIデータ取得
 // - 状態管理
@@ -11,6 +11,8 @@ export const RootContainer = () => {
   // useGetCashFlowsHandler() 調理
   // data: cashFlowsData　お皿を準備
   const { data: cashFlowsData } = useGetCashFlowsHandler()
+  //　これが実際のチラシ
+  const { onSubmitCreateCashFlow } = useCreateCashFlowHandler()
 
   // const { data = [], isSuccess, isFetching} = useGetCashFlowsQuery({target_month: new Date('2025-12-26')})
   // // 取得したdataからtypeがincomeのものだけを取得したい
@@ -67,6 +69,7 @@ export const RootContainer = () => {
           expense: cashFlowsData.expense,
           summary: cashFlowsData.summary,
         }}
+        handlers={{ onSubmitCreateCashFlow: onSubmitCreateCashFlow }}
       />
     </>
   )
