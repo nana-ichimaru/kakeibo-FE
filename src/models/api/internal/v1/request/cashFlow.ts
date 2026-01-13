@@ -10,3 +10,10 @@ export type CreateCashFlowRequest = {
   recordedAt: Date
   amount: number
 }
+
+export type UpdateCashFlowRequest = {
+  title: string
+  type: CashFlow
+  recordedAt: Date
+  amount: number
+}

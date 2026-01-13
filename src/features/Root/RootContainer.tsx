@@ -12,7 +12,7 @@ export const RootContainer = () => {
   // data: cashFlowsData　お皿を準備
   const { data: cashFlowsData } = useGetCashFlowsHandler()
   //　これが実際のチラシ
-  const { onSubmitCreateCashFlow } = useCreateCashFlowHandler()
+  const { data: createCashFlowData, handlers: createCashFlowHandlers } = useCreateCashFlowHandler()
 
   // const { data = [], isSuccess, isFetching} = useGetCashFlowsQuery({target_month: new Date('2025-12-26')})
   // // 取得したdataからtypeがincomeのものだけを取得したい
@@ -62,14 +62,19 @@ export const RootContainer = () => {
   // - RootPresentational は主にUIを担当
   return (
     <>
+      {/* <Button onClick={() => {setCount(count + 1)}}>{count}</Button> */}
       {/* 実際に食べてるところ */}
       <RootPresentational
         data={{
           income: cashFlowsData.income,
           expense: cashFlowsData.expense,
           summary: cashFlowsData.summary,
+          isCreateDialogOpen: createCashFlowData.isCreateDialogOpen,
         }}
-        handlers={{ onSubmitCreateCashFlow: onSubmitCreateCashFlow }}
+        handlers={{
+          onSubmitCreateCashFlow: createCashFlowHandlers.onSubmitCreateCashFlow,
+          setIsCreateDialogOpen: createCashFlowHandlers.setIsCreateDialogOpen,
+        }}
       />
     </>
   )

@@ -1,7 +1,7 @@
 import { internalBackendV1Client } from './client'
 
-import { type GetCashFlowRequestQueryParams, type CreateCashFlowRequest } from '@/models/api/internal/v1/request/cashFlow'
-import { type GetCashFlowResponseItem, type CreateCashFlowResponse } from '@/models/api/internal/v1/response/cashFlow'
+import { type GetCashFlowRequestQueryParams, type CreateCashFlowRequest, type UpdateCashFlowRequest } from '@/models/api/internal/v1/request/cashFlow'
+import { type GetCashFlowResponseItem, type CreateCashFlowResponse, type UpdateCashFlowResponse } from '@/models/api/internal/v1/response/cashFlow'
 
 export const getCashFlows = async (
   // 呼び出し側から受け取った params を、クエリパラメータとしてAPIに渡す
@@ -26,6 +26,16 @@ export const createCashFlow = async (
   // post(url, data, config) の data（第2引数）
   // 第2引数 data は「リクエストボディ」に入るデータ。
   const response = await internalBackendV1Client.post<CreateCashFlowResponse>('/cash-flows', body)
+
+  return response.data
+}
+
+//putを書く　
+export const updateCashFlow = async (
+  id: string,
+  body: UpdateCashFlowRequest,
+): Promise<UpdateCashFlowResponse> => {
+  const response = await internalBackendV1Client.put<UpdateCashFlowResponse>(`/cash-flows/${id}`, body)
 
   return response.data
 }

@@ -4,6 +4,7 @@ import { CashFlowsTab } from './ui/CashFlowsTab'
 import { HEADER_HEIGHT } from '@/share/constants/layout/header'
 import type { CashFlowItemView } from './types/CashFlowItemView'
 import { CashFlowCreateDialog } from './ui/CashFlowCreateDialog'
+
 interface RootPresentationalProps {
   // 作法
   data: {
@@ -14,10 +15,14 @@ interface RootPresentationalProps {
       totalExpense: number
       total: number
     }
+    isCreateDialogOpen: boolean
   }
   //　戻り値が何もないときはvoidを使う
   //　関数の型定義
-  handlers: { onSubmitCreateCashFlow: () => void }
+  handlers: {
+    onSubmitCreateCashFlow: (data: CashFlowItemView) => void
+    setIsCreateDialogOpen: (isOpen: boolean) => void
+  }
 }
 
 //食べたもの　data
@@ -48,7 +53,11 @@ export const RootPresentational = ({ data, handlers }: RootPresentationalProps) 
           {/* Stackの直下に置かれたタグは横幅が広がるため、Boxタグを使用してDialogタグを直下に置かないようにする */}
           <Box>
             <CashFlowCreateDialog
-              handlers={{ onSubmitCreateCashFlow: handlers.onSubmitCreateCashFlow }}
+              data={{ isCreateDialogOpen: data.isCreateDialogOpen }}
+              handlers={{
+                onSubmitCreateCashFlow: handlers.onSubmitCreateCashFlow,
+                setIsCreateDialogOpen: handlers.setIsCreateDialogOpen,
+              }}
             />
           </Box>
           {/* 収支切り替えタブ（収支一覧テーブル表示切り替え） */}
