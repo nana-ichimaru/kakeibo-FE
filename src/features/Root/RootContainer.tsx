@@ -2,6 +2,7 @@ import { RootPresentational } from './RootPresentational'
 
 import { useGetCashFlowsHandler } from './hooks/handlers/useGetCashFlowsHandler'
 import { useCreateCashFlowHandler } from './hooks/handlers/useCreateCashFlowsHandler'
+import { useUpdateCashFlowHandler } from './hooks/handlers/useUpdateCashFlowHandler'
 // RootContainer は「画面のロジックを担当するコンポーネント」
 // - APIデータ取得
 // - 状態管理
@@ -13,6 +14,7 @@ export const RootContainer = () => {
   const { data: cashFlowsData } = useGetCashFlowsHandler()
   //　これが実際のチラシ
   const { data: createCashFlowData, handlers: createCashFlowHandlers } = useCreateCashFlowHandler()
+  const { handlers: updateCashFlowHandlers } = useUpdateCashFlowHandler()
 
   // const { data = [], isSuccess, isFetching} = useGetCashFlowsQuery({target_month: new Date('2025-12-26')})
   // // 取得したdataからtypeがincomeのものだけを取得したい
@@ -62,7 +64,6 @@ export const RootContainer = () => {
   // - RootPresentational は主にUIを担当
   return (
     <>
-      {/* <Button onClick={() => {setCount(count + 1)}}>{count}</Button> */}
       {/* 実際に食べてるところ */}
       <RootPresentational
         data={{
@@ -73,6 +74,7 @@ export const RootContainer = () => {
         }}
         handlers={{
           onSubmitCreateCashFlow: createCashFlowHandlers.onSubmitCreateCashFlow,
+          onSubmitUpdateCashFlow: updateCashFlowHandlers.onSubmitUpdateCashFlow,
           setIsCreateDialogOpen: createCashFlowHandlers.setIsCreateDialogOpen,
         }}
       />

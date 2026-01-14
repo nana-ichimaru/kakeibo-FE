@@ -4,6 +4,7 @@ import { CashFlowsTab } from './ui/CashFlowsTab'
 import { HEADER_HEIGHT } from '@/share/constants/layout/header'
 import type { CashFlowItemView } from './types/CashFlowItemView'
 import { CashFlowCreateDialog } from './ui/CashFlowCreateDialog'
+import { CashFlowUpdateDialog } from './ui/CashFlowsTable/CashFlowUpdateDialog/CashFlowUpdateDialog'
 
 interface RootPresentationalProps {
   // 作法
@@ -21,6 +22,7 @@ interface RootPresentationalProps {
   //　関数の型定義
   handlers: {
     onSubmitCreateCashFlow: (data: CashFlowItemView) => void
+    onSubmitUpdateCashFlow: () => void
     setIsCreateDialogOpen: (isOpen: boolean) => void
   }
 }
@@ -38,6 +40,9 @@ export const RootPresentational = ({ data, handlers }: RootPresentationalProps) 
         <Stack>
           {/* 日付選択カレンダー */}
           <Box>日付選択カレンダー</Box>
+          <CashFlowUpdateDialog
+            handlers={{ onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow }}
+          />
           {/* 収支計算 */}
           {/* 要素を横に並べる */}
           <HStack>

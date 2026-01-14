@@ -14,3 +14,5 @@ export const getHealthCheck = async (): Promise<GetHealthCheckResponse> => {
   // axios 形式なので、実際のデータ本体は response.data に入っている
   return response.data
 }
+
+

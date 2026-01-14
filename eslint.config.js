@@ -51,6 +51,8 @@ export default defineConfig([
       // jsx-runtime（React17+）向けのルールを展開
       ...react.configs['jsx-runtime'].rules,
 
+      ...reactHooks.configs.recommended.rules,
+
       // type/interface 強制ルールを無効化（どちらでもOKにする）
       '@typescript-eslint/consistent-type-definitions': 'off',
     },

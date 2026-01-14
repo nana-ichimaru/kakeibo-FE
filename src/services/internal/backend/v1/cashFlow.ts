@@ -32,10 +32,17 @@ export const createCashFlow = async (
 
 //putを書く　
 export const updateCashFlow = async (
-  id: string,
+  id: number,
   body: UpdateCashFlowRequest,
 ): Promise<UpdateCashFlowResponse> => {
-  const response = await internalBackendV1Client.put<UpdateCashFlowResponse>(`/cash-flows/${id}`, body)
+  const response = await internalBackendV1Client.put<UpdateCashFlowResponse>(`/cash-flows/${id.toString()}`, body)
 
   return response.data
 }
+
+// 非同期通信の流れ
+// javascriptは本来即時実行ですぐに次の処理へと進んでしまう。
+// Promiseは一旦空の箱を渡す役割をする
+// async非同期の関数でawait は「この処理が終わるまで待ってから次へ進む」を使えるようにする
+// awaitが実行されたら、returnで箱にデータが入る(awaitされたものがそのまま入るわけではない。.dataのように加工されることもある)
+// まとめる
