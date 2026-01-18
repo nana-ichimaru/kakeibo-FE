@@ -15,6 +15,10 @@ export const useUpdateCashFlowMutation = () => {
     // mutate(body) が呼ばれたら、ここが実行される
     // 更新ボタンなどで mutate(body) が呼ばれたら、その body を受け取って、id と一緒に updateCashFlow に渡して更新APIを叩く
     mutationFn: ({ id, data }: { id: number; data: UpdateCashFlowRequest }) => updateCashFlow(id, data),
+    // 名前を変えて取り出すこともできる
+    // ({ id: cashFlowId, data }: { id: number; data: UpdateCashFlowRequest }) => updateCashFlow(cashFlowId, data)
+    // 呼び出し側
+    // mutate({ id: selectedId, data: form }) みたいな感じになる
     /**
      * onSuccess:
      * mutationFn（PUT）が成功したときに実行される処理

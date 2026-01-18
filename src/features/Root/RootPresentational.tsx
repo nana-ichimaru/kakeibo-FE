@@ -17,6 +17,7 @@ interface RootPresentationalProps {
       total: number
     }
     isCreateDialogOpen: boolean
+    isUpdateDialogOpen: boolean
   }
   //　戻り値が何もないときはvoidを使う
   //　関数の型定義
@@ -24,6 +25,7 @@ interface RootPresentationalProps {
     onSubmitCreateCashFlow: (data: CashFlowItemView) => void
     onSubmitUpdateCashFlow: () => void
     setIsCreateDialogOpen: (isOpen: boolean) => void
+    setIsUpdateDialogOpen: (isOpen: boolean) => void
   }
 }
 
@@ -41,7 +43,11 @@ export const RootPresentational = ({ data, handlers }: RootPresentationalProps) 
           {/* 日付選択カレンダー */}
           <Box>日付選択カレンダー</Box>
           <CashFlowUpdateDialog
-            handlers={{ onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow }}
+            data={{ isUpdateDialogOpen: data.isUpdateDialogOpen }}
+            handlers={{
+              onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
+              setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
+            }}
           />
           {/* 収支計算 */}
           {/* 要素を横に並べる */}
@@ -66,7 +72,17 @@ export const RootPresentational = ({ data, handlers }: RootPresentationalProps) 
             />
           </Box>
           {/* 収支切り替えタブ（収支一覧テーブル表示切り替え） */}
-          <CashFlowsTab data={{ income: data.income, expense: data.expense }} />
+          <CashFlowsTab
+            data={{
+              income: data.income,
+              expense: data.expense,
+              isUpdateDialogOpen: data.isUpdateDialogOpen,
+            }}
+            handlers={{
+              onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
+              setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen
+            }}
+          />
         </Stack>
       </Container>
     </>

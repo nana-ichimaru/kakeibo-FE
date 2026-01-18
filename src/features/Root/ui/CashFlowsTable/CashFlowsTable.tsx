@@ -1,13 +1,19 @@
 import { Table, Button } from '@chakra-ui/react'
 import { type CashFlowItemView } from '../../types/CashFlowItemView'
+import { CashFlowUpdateDialog } from './CashFlowUpdateDialog/CashFlowUpdateDialog'
 
 interface CashFlowsTableProps {
   data: {
     cashFlows: CashFlowItemView[]
+    isUpdateDialogOpen: boolean
+  }
+  handlers: {
+    onSubmitUpdateCashFlow: () => void
+    setIsUpdateDialogOpen: (isOpen: boolean) => void
   }
 }
 
-export const CashFlowsTable = ({ data }: CashFlowsTableProps) => {
+export const CashFlowsTable = ({ data, handlers }: CashFlowsTableProps) => {
   return (
     <>
       <Table.Root variant='outline'>
@@ -27,7 +33,13 @@ export const CashFlowsTable = ({ data }: CashFlowsTableProps) => {
               <Table.Cell>{item.title}</Table.Cell>
               <Table.Cell>{item.amount}</Table.Cell>
               <Table.Cell>
-                <Button>Edit</Button>
+                <CashFlowUpdateDialog
+                  data={{ isUpdateDialogOpen: data.isUpdateDialogOpen }}
+                  handlers={{
+                    onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
+                    setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
+                  }}
+                />
               </Table.Cell>
               <Table.Cell>
                 <Button>Delete</Button>

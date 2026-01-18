@@ -2,17 +2,21 @@ import { Button, Dialog, Portal, Field, Fieldset, Input, NativeSelect } from '@c
 import { CashFlowTypeList } from '@/share/constants/business/cashFlowType'
 import { transformCashFlowTypeJa } from '@/share/logic/transform/transformCashFlowType'
 interface CashFlowUpdateDialogProps {
+  data: {
+    isUpdateDialogOpen: boolean
+  }
   handlers: {
     onSubmitUpdateCashFlow: () => void
+    setIsUpdateDialogOpen: (isOpen: boolean) => void
   }
 }
 
-export const CashFlowUpdateDialog = ({ handlers }: CashFlowUpdateDialogProps) => {
+export const CashFlowUpdateDialog = ({ data, handlers }: CashFlowUpdateDialogProps) => {
   return (
     <>
-      <Dialog.Root>
+      <Dialog.Root open={data.isUpdateDialogOpen}>
         <Dialog.Trigger asChild>
-          <Button>Edit</Button>
+          <Button onClick={() => {handlers.setIsUpdateDialogOpen(true)}} bg={'blue.500'}>Edit</Button>
         </Dialog.Trigger>
         <Portal>
           <Dialog.Backdrop />
@@ -24,6 +28,7 @@ export const CashFlowUpdateDialog = ({ handlers }: CashFlowUpdateDialogProps) =>
               <form
                 action={(data) => {
                   handlers.onSubmitUpdateCashFlow()
+                  handlers.setIsUpdateDialogOpen(false)
                 }}
               >
                 <Dialog.Body>
@@ -63,7 +68,7 @@ export const CashFlowUpdateDialog = ({ handlers }: CashFlowUpdateDialogProps) =>
                 </Dialog.Body>
                 <Dialog.Footer>
                   <Dialog.ActionTrigger asChild>
-                    <Button>Close</Button>
+                    <Button onClick={() => {handlers.setIsUpdateDialogOpen(false)}} bg={'gray.500'}>Close</Button>
                   </Dialog.ActionTrigger>
                   <Button type='submit'>Edit</Button>
                 </Dialog.Footer>
