@@ -40,6 +40,13 @@ export const updateCashFlow = async (
   return response.data
 }
 
+// Promise は返るけど、中身（resolve値）は何もない
+export const deleteCashFlow = async (id: number): Promise<void> => {
+  await internalBackendV1Client.delete(`/cash-flows/${id.toString()}`)
+}
+
+
+
 // 非同期通信の流れ
 // javascriptは本来即時実行ですぐに次の処理へと進んでしまう。
 // Promiseは一旦空の箱を渡す役割をする

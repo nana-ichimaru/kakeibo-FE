@@ -7,10 +7,12 @@ interface CashFlowsTabProps {
     income: CashFlowItemView[]
     expense: CashFlowItemView[]
     isUpdateDialogOpen: boolean
+    targetUpdateCashFlowId: number | null
   }
   handlers: {
     onSubmitUpdateCashFlow: () => void
     setIsUpdateDialogOpen: (isOpen: boolean) => void
+    setTargetUpdateCashFlowId: (data: number | null) => void
   }
 }
 // データは以下の形
@@ -28,19 +30,21 @@ export const CashFlowsTab = ({ data, handlers }: CashFlowsTabProps) => {
         </Tabs.List>
         <Tabs.Content value='income'>
           <CashFlowsTable
-            data={{ cashFlows: data.income, isUpdateDialogOpen: data.isUpdateDialogOpen }}
+            data={{ cashFlows: data.income, isUpdateDialogOpen: data.isUpdateDialogOpen, targetUpdateCashFlowId: data.targetUpdateCashFlowId }}
             handlers={{
               onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
               setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
+              setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId
             }}
           />
         </Tabs.Content>
         <Tabs.Content value='expense'>
           <CashFlowsTable
-            data={{ cashFlows: data.income, isUpdateDialogOpen: data.isUpdateDialogOpen }}
+            data={{ cashFlows: data.expense, isUpdateDialogOpen: data.isUpdateDialogOpen, targetUpdateCashFlowId: data.targetUpdateCashFlowId }}
             handlers={{
               onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
               setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
+              setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId
             }}
           />
         </Tabs.Content>

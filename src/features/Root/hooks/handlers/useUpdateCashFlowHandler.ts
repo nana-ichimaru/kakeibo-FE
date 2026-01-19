@@ -1,6 +1,7 @@
 import { useUpdateCashFlowMutation } from '../mutations/useUpdateCashFlowMutation'
 import { useState } from 'react'
-import { CashFlowItemView } from '../../types/CashFlowItemView'
+import { type CashFlowItemView } from '../../types/CashFlowItemView'
+import { type UpdateCashFlowRequest } from '@/models/api/internal/v1/request/cashFlow'
 
 // バックエンドから取得したデータを、そのままUIに渡すのではなく、画面で使いやすい形に整えてからコンテナに渡す場所
 export const useUpdateCashFlowHandler = () => {
@@ -11,23 +12,31 @@ export const useUpdateCashFlowHandler = () => {
 
   
   // こうやって連絡すればいいよを教えてくれる関数
-  const onSubmitUpdateCashFlow = () => {
-    console.log('onSubmitUpdateCashFlow')
+  const onSubmitUpdateCashFlow = (data: CashFlowItemView) => {
+    const body: UpdateCashFlowRequest = {
+      title: data.title,
+      type: data.type,
+      recordedAt: data.recordedAt,
+      amount: data.amount,
+    }
+    mutate({ id:data.id, data:body })
   }
 
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState<boolean>(false)
   // targetCashFlow は「編集対象を選んだ時だけ入る」ものなので、初期状態のまだ Edit を押してない場合はnull　どれか Edit 押した後にitem が入る
-  const [targetCashFlow, setTargetCashFlow] = useState<CashFlowItemView | null>(null)
+  const [targetUpdateCashFlowId, setTargetUpdateCashFlowId] = useState<number | null>(null)
 
   // onClick={() => {handlers.setTargetCashFlow(item)}}
 
   return {
     data: {
       isUpdateDialogOpen,
+      targetUpdateCashFlowId,
     },
     handlers: {
       onSubmitUpdateCashFlow,
       setIsUpdateDialogOpen,
+      setTargetUpdateCashFlowId,
     },
   }
 }

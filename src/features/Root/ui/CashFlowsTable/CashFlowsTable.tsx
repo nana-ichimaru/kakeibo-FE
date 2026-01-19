@@ -6,10 +6,12 @@ interface CashFlowsTableProps {
   data: {
     cashFlows: CashFlowItemView[]
     isUpdateDialogOpen: boolean
+    targetUpdateCashFlowId: number | null
   }
   handlers: {
     onSubmitUpdateCashFlow: () => void
     setIsUpdateDialogOpen: (isOpen: boolean) => void
+    setTargetUpdateCashFlowId: (data: number | null) => void
   }
 }
 
@@ -34,10 +36,11 @@ export const CashFlowsTable = ({ data, handlers }: CashFlowsTableProps) => {
               <Table.Cell>{item.amount}</Table.Cell>
               <Table.Cell>
                 <CashFlowUpdateDialog
-                  data={{ isUpdateDialogOpen: data.isUpdateDialogOpen }}
+                  data={{ isUpdateDialogOpen: data.isUpdateDialogOpen, cashFlow: item, targetUpdateCashFlowId: data.targetUpdateCashFlowId }}
                   handlers={{
                     onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
                     setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
+                    setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId,
                   }}
                 />
               </Table.Cell>

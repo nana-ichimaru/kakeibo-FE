@@ -72,12 +72,14 @@ export const RootContainer = () => {
           summary: cashFlowsData.summary,
           isCreateDialogOpen: createCashFlowData.isCreateDialogOpen,
           isUpdateDialogOpen: updateCashFlowData.isUpdateDialogOpen,
+          targetUpdateCashFlowId: updateCashFlowData.targetUpdateCashFlowId
         }}
         handlers={{
           onSubmitCreateCashFlow: createCashFlowHandlers.onSubmitCreateCashFlow,
           onSubmitUpdateCashFlow: updateCashFlowHandlers.onSubmitUpdateCashFlow,
           setIsCreateDialogOpen: createCashFlowHandlers.setIsCreateDialogOpen,
-          setIsUpdateDialogOpen: updateCashFlowHandlers.setIsUpdateDialogOpen
+          setIsUpdateDialogOpen: updateCashFlowHandlers.setIsUpdateDialogOpen,
+          setTargetUpdateCashFlowId: updateCashFlowHandlers.setTargetUpdateCashFlowId
         }}
       />
     </>

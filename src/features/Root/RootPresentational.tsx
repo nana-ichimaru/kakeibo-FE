@@ -4,7 +4,6 @@ import { CashFlowsTab } from './ui/CashFlowsTab'
 import { HEADER_HEIGHT } from '@/share/constants/layout/header'
 import type { CashFlowItemView } from './types/CashFlowItemView'
 import { CashFlowCreateDialog } from './ui/CashFlowCreateDialog'
-import { CashFlowUpdateDialog } from './ui/CashFlowsTable/CashFlowUpdateDialog/CashFlowUpdateDialog'
 
 interface RootPresentationalProps {
   // 作法
@@ -18,6 +17,7 @@ interface RootPresentationalProps {
     }
     isCreateDialogOpen: boolean
     isUpdateDialogOpen: boolean
+    targetUpdateCashFlowId: number | null
   }
   //　戻り値が何もないときはvoidを使う
   //　関数の型定義
@@ -26,6 +26,7 @@ interface RootPresentationalProps {
     onSubmitUpdateCashFlow: () => void
     setIsCreateDialogOpen: (isOpen: boolean) => void
     setIsUpdateDialogOpen: (isOpen: boolean) => void
+    setTargetUpdateCashFlowId: (data: number | null) => void
   }
 }
 
@@ -42,13 +43,6 @@ export const RootPresentational = ({ data, handlers }: RootPresentationalProps) 
         <Stack>
           {/* 日付選択カレンダー */}
           <Box>日付選択カレンダー</Box>
-          <CashFlowUpdateDialog
-            data={{ isUpdateDialogOpen: data.isUpdateDialogOpen }}
-            handlers={{
-              onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
-              setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
-            }}
-          />
           {/* 収支計算 */}
           {/* 要素を横に並べる */}
           <HStack>
@@ -77,10 +71,12 @@ export const RootPresentational = ({ data, handlers }: RootPresentationalProps) 
               income: data.income,
               expense: data.expense,
               isUpdateDialogOpen: data.isUpdateDialogOpen,
+              targetUpdateCashFlowId: data.targetUpdateCashFlowId,
             }}
             handlers={{
               onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
-              setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen
+              setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
+              setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId,
             }}
           />
         </Stack>
