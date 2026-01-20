@@ -10,16 +10,20 @@ export const useUpdateCashFlowHandler = () => {
   // ボタンが押された時にmutateを実行したい
   const { mutate } = useUpdateCashFlowMutation()
 
-  
   // こうやって連絡すればいいよを教えてくれる関数
   const onSubmitUpdateCashFlow = (data: CashFlowItemView) => {
+    // data.id の型が number | undefined（場合によっては null も）になっている
+    //　でも mutate は id: number が必須（undefined は許されない）
+    if (data.id == undefined) return
+    // ここ以降は「data.id は null/undefined ではない」と分かる
+    // => data.id は number として扱える
     const body: UpdateCashFlowRequest = {
       title: data.title,
       type: data.type,
       recordedAt: data.recordedAt,
       amount: data.amount,
     }
-    mutate({ id:data.id, data:body })
+    mutate({ id: data.id, data: body })
   }
 
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState<boolean>(false)

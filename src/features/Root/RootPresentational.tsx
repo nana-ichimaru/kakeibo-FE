@@ -17,16 +17,21 @@ interface RootPresentationalProps {
     }
     isCreateDialogOpen: boolean
     isUpdateDialogOpen: boolean
+    isDeleteDialogOpen: boolean
     targetUpdateCashFlowId: number | null
+    targetDeleteCashFlowId: number | null
   }
   //　戻り値が何もないときはvoidを使う
   //　関数の型定義
   handlers: {
     onSubmitCreateCashFlow: (data: CashFlowItemView) => void
-    onSubmitUpdateCashFlow: () => void
+    onSubmitUpdateCashFlow: (data: CashFlowItemView) => void
+    onSubmitDeleteCashFlow: (id: number | undefined) => void
     setIsCreateDialogOpen: (isOpen: boolean) => void
     setIsUpdateDialogOpen: (isOpen: boolean) => void
+    setIsDeleteDialogOpen: (isOpen: boolean) => void
     setTargetUpdateCashFlowId: (data: number | null) => void
+    setTargetDeleteCashFlowId: (data: number | null) => void
   }
 }
 
@@ -72,11 +77,16 @@ export const RootPresentational = ({ data, handlers }: RootPresentationalProps) 
               expense: data.expense,
               isUpdateDialogOpen: data.isUpdateDialogOpen,
               targetUpdateCashFlowId: data.targetUpdateCashFlowId,
+              isDeleteDialogOpen: data.isDeleteDialogOpen,
+              targetDeleteCashFlowId: data.targetDeleteCashFlowId,
             }}
             handlers={{
               onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
+              onSubmitDeleteCashFlow: handlers.onSubmitDeleteCashFlow,
               setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
+              setIsDeleteDialogOpen: handlers.setIsDeleteDialogOpen,
               setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId,
+              setTargetDeleteCashFlowId: handlers.setTargetDeleteCashFlowId,
             }}
           />
         </Stack>

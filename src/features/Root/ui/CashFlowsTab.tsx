@@ -7,12 +7,17 @@ interface CashFlowsTabProps {
     income: CashFlowItemView[]
     expense: CashFlowItemView[]
     isUpdateDialogOpen: boolean
+    isDeleteDialogOpen: boolean
     targetUpdateCashFlowId: number | null
+    targetDeleteCashFlowId: number | null
   }
   handlers: {
-    onSubmitUpdateCashFlow: () => void
+    onSubmitUpdateCashFlow: (data: CashFlowItemView) => void
+    onSubmitDeleteCashFlow: (id: number | undefined) => void
     setIsUpdateDialogOpen: (isOpen: boolean) => void
+    setIsDeleteDialogOpen: (isOpen: boolean) => void
     setTargetUpdateCashFlowId: (data: number | null) => void
+    setTargetDeleteCashFlowId: (data: number | null) => void
   }
 }
 // データは以下の形
@@ -30,21 +35,39 @@ export const CashFlowsTab = ({ data, handlers }: CashFlowsTabProps) => {
         </Tabs.List>
         <Tabs.Content value='income'>
           <CashFlowsTable
-            data={{ cashFlows: data.income, isUpdateDialogOpen: data.isUpdateDialogOpen, targetUpdateCashFlowId: data.targetUpdateCashFlowId }}
+            data={{
+              cashFlows: data.income,
+              isUpdateDialogOpen: data.isUpdateDialogOpen,
+              targetUpdateCashFlowId: data.targetUpdateCashFlowId,
+              isDeleteDialogOpen: data.isDeleteDialogOpen,
+              targetDeleteCashFlowId: data.targetDeleteCashFlowId,
+            }}
             handlers={{
               onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
+              onSubmitDeleteCashFlow: handlers.onSubmitDeleteCashFlow,
               setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
-              setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId
+              setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId,
+              setIsDeleteDialogOpen: handlers.setIsDeleteDialogOpen,
+              setTargetDeleteCashFlowId: handlers.setTargetDeleteCashFlowId,
             }}
           />
         </Tabs.Content>
         <Tabs.Content value='expense'>
           <CashFlowsTable
-            data={{ cashFlows: data.expense, isUpdateDialogOpen: data.isUpdateDialogOpen, targetUpdateCashFlowId: data.targetUpdateCashFlowId }}
+            data={{
+              cashFlows: data.expense,
+              isUpdateDialogOpen: data.isUpdateDialogOpen,
+              targetUpdateCashFlowId: data.targetUpdateCashFlowId,
+              isDeleteDialogOpen: data.isDeleteDialogOpen,
+              targetDeleteCashFlowId: data.targetDeleteCashFlowId,
+            }}
             handlers={{
               onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
+              onSubmitDeleteCashFlow: handlers.onSubmitDeleteCashFlow,
               setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
-              setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId
+              setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId,
+              setIsDeleteDialogOpen: handlers.setIsDeleteDialogOpen,
+              setTargetDeleteCashFlowId: handlers.setTargetDeleteCashFlowId,
             }}
           />
         </Tabs.Content>

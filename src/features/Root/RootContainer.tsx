@@ -3,6 +3,7 @@ import { RootPresentational } from './RootPresentational'
 import { useGetCashFlowsHandler } from './hooks/handlers/useGetCashFlowsHandler'
 import { useCreateCashFlowHandler } from './hooks/handlers/useCreateCashFlowsHandler'
 import { useUpdateCashFlowHandler } from './hooks/handlers/useUpdateCashFlowHandler'
+import { useDeleteCashFlowHandler } from './hooks/handlers/useDeleteCashFlowHandler'
 // RootContainer は「画面のロジックを担当するコンポーネント」
 // - APIデータ取得
 // - 状態管理
@@ -15,6 +16,7 @@ export const RootContainer = () => {
   //　これが実際のチラシ
   const { data: createCashFlowData, handlers: createCashFlowHandlers } = useCreateCashFlowHandler()
   const { data: updateCashFlowData, handlers: updateCashFlowHandlers } = useUpdateCashFlowHandler()
+  const { data: deleteCashFlowData, handlers: deleteCashFlowHandlers } = useDeleteCashFlowHandler()
 
   // const { data = [], isSuccess, isFetching} = useGetCashFlowsQuery({target_month: new Date('2025-12-26')})
   // // 取得したdataからtypeがincomeのものだけを取得したい
@@ -72,14 +74,19 @@ export const RootContainer = () => {
           summary: cashFlowsData.summary,
           isCreateDialogOpen: createCashFlowData.isCreateDialogOpen,
           isUpdateDialogOpen: updateCashFlowData.isUpdateDialogOpen,
-          targetUpdateCashFlowId: updateCashFlowData.targetUpdateCashFlowId
+          isDeleteDialogOpen: deleteCashFlowData.isDeleteDialogOpen,
+          targetUpdateCashFlowId: updateCashFlowData.targetUpdateCashFlowId,
+          targetDeleteCashFlowId: deleteCashFlowData.targetDeleteCashFlowId,
         }}
         handlers={{
           onSubmitCreateCashFlow: createCashFlowHandlers.onSubmitCreateCashFlow,
           onSubmitUpdateCashFlow: updateCashFlowHandlers.onSubmitUpdateCashFlow,
+          onSubmitDeleteCashFlow: deleteCashFlowHandlers.onSubmitDeleteCashFlow,
           setIsCreateDialogOpen: createCashFlowHandlers.setIsCreateDialogOpen,
           setIsUpdateDialogOpen: updateCashFlowHandlers.setIsUpdateDialogOpen,
-          setTargetUpdateCashFlowId: updateCashFlowHandlers.setTargetUpdateCashFlowId
+          setIsDeleteDialogOpen: deleteCashFlowHandlers.setIsDeleteDialogOpen,
+          setTargetUpdateCashFlowId: updateCashFlowHandlers.setTargetUpdateCashFlowId,
+          setTargetDeleteCashFlowId: deleteCashFlowHandlers.setTargetDeleteCashFlowId,
         }}
       />
     </>

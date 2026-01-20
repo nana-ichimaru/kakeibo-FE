@@ -2,6 +2,7 @@ import { Button, Dialog, Portal, Field, Fieldset, Input, NativeSelect } from '@c
 import { CashFlowTypeList } from '@/share/constants/business/cashFlowType'
 import { transformCashFlowTypeJa } from '@/share/logic/transform/transformCashFlowType'
 import { type CashFlowItemView } from '@/features/Root/types/CashFlowItemView'
+import { type CashFlow } from '@/share/types/cashFlow'
 interface CashFlowUpdateDialogProps {
   data: {
     isUpdateDialogOpen: boolean
@@ -10,7 +11,7 @@ interface CashFlowUpdateDialogProps {
     targetUpdateCashFlowId: number | null
   }
   handlers: {
-    onSubmitUpdateCashFlow: () => void
+    onSubmitUpdateCashFlow: (data: CashFlowItemView) => void
     setIsUpdateDialogOpen: (isOpen: boolean) => void
     setTargetUpdateCashFlowId: (data: number | null) => void
   }
@@ -41,12 +42,13 @@ export const CashFlowUpdateDialog = ({ data, handlers }: CashFlowUpdateDialogPro
                 <Dialog.Title>Update Cash Flow</Dialog.Title>
               </Dialog.Header>
               <form
-                action={(data) => {
+                action={(fd) => {
                   handlers.onSubmitUpdateCashFlow({
-                    title: data.get('title') as string,
-                    type: data.get('type') as CashFlow,
-                    recordedAt: new Date(data.get('recordedAt') as string),
-                    amount: Number(data.get('amount')),
+                    id: data.cashFlow?.id,
+                    title: fd.get('title') as string,
+                    type: fd.get('type') as CashFlow,
+                    recordedAt: new Date(fd.get('recordedAt') as string),
+                    amount: Number(fd.get('amount')),
                   })
                   handlers.setIsUpdateDialogOpen(false)
                 }}
@@ -108,7 +110,9 @@ export const CashFlowUpdateDialog = ({ data, handlers }: CashFlowUpdateDialogPro
                       Close
                     </Button>
                   </Dialog.ActionTrigger>
-                  <Button type='submit'>Edit</Button>
+                  <Button type='submit' bg={'blue.500'}>
+                    Edit
+                  </Button>
                 </Dialog.Footer>
               </form>
             </Dialog.Content>
