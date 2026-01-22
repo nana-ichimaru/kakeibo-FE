@@ -2,6 +2,7 @@ import { useCreateCashFlowMutation } from '@/features/Root/hooks/mutations/useCr
 import { type CashFlowItemView } from '../../types/CashFlowItemView'
 import { type CreateCashFlowRequest } from '@/models/api/internal/v1/request/cashFlow'
 import { useState } from 'react'
+import { toaster } from '@/components/ui/toaster'
 
 // ダイアログで使えるようにしてみる
 export const useCreateCashFlowHandler = () => {
@@ -12,7 +13,7 @@ export const useCreateCashFlowHandler = () => {
   // CashFlowItemView はUIの責務
   // CreateCashFlowRequest はAPIの責務
   // それを useCreateCashFlowHandler が橋渡しする責務
-  // こうやって連絡すればいいよを教えてくれる関数　
+  // こうやって連絡すればいいよを教えてくれる関数
   const onSubmitCreateCashFlow = (data: CashFlowItemView) => {
     const body: CreateCashFlowRequest = {
       title: data.title,
@@ -21,7 +22,16 @@ export const useCreateCashFlowHandler = () => {
       amount: data.amount,
     }
     //　電話をここでかけている（bodyこれが注文）
-    mutate(body)
+    try {
+      mutate(body)
+      toaster.success({ title: '登録に成功しました' })
+    } catch (e) {
+      toaster.error({
+        title: '登録に失敗しました',
+        description: '時間をあけてアクセスしてください',
+      })
+      console.log(e)
+    }
   }
 
   //booleanは変数名にisをつける慣習
@@ -31,7 +41,7 @@ export const useCreateCashFlowHandler = () => {
   //ボタンがクリックされたときにsetCountを使ってcountの値を更新する
   //setCount(count + 1)かっこの中に更新したい値をおく
   //const [count, setCount] = useState<number | string>(100)
-  //<Button onClick={() => {setCount(count + 1)}}>{count}</Button> 
+  //<Button onClick={() => {setCount(count + 1)}}>{count}</Button>
 
   return {
     data: {

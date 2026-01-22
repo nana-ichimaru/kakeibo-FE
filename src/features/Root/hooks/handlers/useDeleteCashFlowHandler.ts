@@ -1,5 +1,6 @@
 import { useDeleteCashFlowMutation } from '../mutations/useDeleteCashFlowMutation'
 import { useState } from 'react'
+import { toaster } from '@/components/ui/toaster'
 
 export const useDeleteCashFlowHandler = () => {
   // mutate がピザのチラシ
@@ -9,7 +10,16 @@ export const useDeleteCashFlowHandler = () => {
 
   const onSubmitDeleteCashFlow = (id: number | undefined) => {
     if (id == undefined) return
-    mutate(id)
+    try {
+      mutate(id)
+      toaster.success({ title: '削除に成功しました' })
+    } catch (e) {
+      toaster.error({
+        title: '削除に失敗しました',
+        description: '時間をあけてアクセスしてください',
+      })
+      console.log(e)
+    }
   }
 
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false)

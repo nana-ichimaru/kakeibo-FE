@@ -1,6 +1,7 @@
 import { Tabs } from '@chakra-ui/react'
 import type { CashFlowItemView } from '../types/CashFlowItemView'
 import { CashFlowsTable } from './CashFlowsTable/CashFlowsTable'
+import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi'
 
 interface CashFlowsTabProps {
   data: {
@@ -30,8 +31,16 @@ export const CashFlowsTab = ({ data, handlers }: CashFlowsTabProps) => {
     <>
       <Tabs.Root defaultValue='income' variant='outline'>
         <Tabs.List>
-          <Tabs.Trigger value='income'>income</Tabs.Trigger>
-          <Tabs.Trigger value='expense'>expense</Tabs.Trigger>
+          <Tabs.Trigger value='income'>
+            <GiReceiveMoney />
+            income
+            <p>({data.income.length})</p>
+          </Tabs.Trigger>
+          <Tabs.Trigger value='expense'>
+            <GiPayMoney />
+            expense
+            <p>({data.expense.length})</p>
+          </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value='income'>
           <CashFlowsTable

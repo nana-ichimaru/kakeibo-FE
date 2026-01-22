@@ -4,10 +4,12 @@ import { CashFlowsTab } from './ui/CashFlowsTab'
 import { HEADER_HEIGHT } from '@/share/constants/layout/header'
 import type { CashFlowItemView } from './types/CashFlowItemView'
 import { CashFlowCreateDialog } from './ui/CashFlowCreateDialog'
+import { MonthYearPicker } from '@/components/atoms/MonthYearPicker'
 
 interface RootPresentationalProps {
   // 作法
   data: {
+    targetMonth: Date
     income: CashFlowItemView[]
     expense: CashFlowItemView[]
     summary: {
@@ -24,6 +26,7 @@ interface RootPresentationalProps {
   //　戻り値が何もないときはvoidを使う
   //　関数の型定義
   handlers: {
+    setTargetMonth: (date: Date) => void
     onSubmitCreateCashFlow: (data: CashFlowItemView) => void
     onSubmitUpdateCashFlow: (data: CashFlowItemView) => void
     onSubmitDeleteCashFlow: (id: number | undefined) => void
@@ -43,11 +46,18 @@ export const RootPresentational = ({ data, handlers }: RootPresentationalProps) 
         Header（64pxなど）が上にある状態で、メインコンテンツが「残りの画面の高さ」にピッタリ収まるようにするため
         calc() は CSS の計算関数で、単位の違う値（vh と px）でも引き算できる
         100vh は「画面の高さ100%」、px は固定の長さ */}
-      <Container h={`calc(100vh - ${HEADER_HEIGHT})`}>
+      <Container h={`calc(100vh - ${HEADER_HEIGHT})`} py={8}>
         {/* 子要素を縦方向または横方向に積み重ねて配置するために使用されます。 */}
-        <Stack>
+        <Stack gap={8}>
           {/* 日付選択カレンダー */}
-          <Box>日付選択カレンダー</Box>
+          <Box>
+            <MonthYearPicker
+              data={{ targetMonth: data.targetMonth }}
+              handlers={{
+                setTargetMonth: handlers.setTargetMonth,
+              }}
+            />
+          </Box>
           {/* 収支計算 */}
           {/* 要素を横に並べる */}
           <HStack>

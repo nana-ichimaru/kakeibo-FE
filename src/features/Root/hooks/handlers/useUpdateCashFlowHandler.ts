@@ -2,6 +2,7 @@ import { useUpdateCashFlowMutation } from '../mutations/useUpdateCashFlowMutatio
 import { useState } from 'react'
 import { type CashFlowItemView } from '../../types/CashFlowItemView'
 import { type UpdateCashFlowRequest } from '@/models/api/internal/v1/request/cashFlow'
+import { toaster } from '@/components/ui/toaster'
 
 // バックエンドから取得したデータを、そのままUIに渡すのではなく、画面で使いやすい形に整えてからコンテナに渡す場所
 export const useUpdateCashFlowHandler = () => {
@@ -23,7 +24,16 @@ export const useUpdateCashFlowHandler = () => {
       recordedAt: data.recordedAt,
       amount: data.amount,
     }
-    mutate({ id: data.id, data: body })
+    try {
+      mutate({ id: data.id, data: body })
+      toaster.success({ title: '更新に成功しました' })
+    } catch (e) {
+      toaster.error({
+        title: '更新に失敗しました',
+        description: '時間をあけてアクセスしてください',
+      })
+      console.log(e)
+    }
   }
 
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState<boolean>(false)

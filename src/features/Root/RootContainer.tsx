@@ -12,7 +12,7 @@ import { useDeleteCashFlowHandler } from './hooks/handlers/useDeleteCashFlowHand
 export const RootContainer = () => {
   // useGetCashFlowsHandler() 調理
   // data: cashFlowsData　お皿を準備
-  const { data: cashFlowsData } = useGetCashFlowsHandler()
+  const { data: cashFlowsData, handlers: cashFlowsHandlers } = useGetCashFlowsHandler()
   //　これが実際のチラシ
   const { data: createCashFlowData, handlers: createCashFlowHandlers } = useCreateCashFlowHandler()
   const { data: updateCashFlowData, handlers: updateCashFlowHandlers } = useUpdateCashFlowHandler()
@@ -69,6 +69,7 @@ export const RootContainer = () => {
       {/* 実際に食べてるところ */}
       <RootPresentational
         data={{
+          targetMonth: cashFlowsData.targetMonth,
           income: cashFlowsData.income,
           expense: cashFlowsData.expense,
           summary: cashFlowsData.summary,
@@ -79,6 +80,7 @@ export const RootContainer = () => {
           targetDeleteCashFlowId: deleteCashFlowData.targetDeleteCashFlowId,
         }}
         handlers={{
+          setTargetMonth: cashFlowsHandlers.setTargetMonth,
           onSubmitCreateCashFlow: createCashFlowHandlers.onSubmitCreateCashFlow,
           onSubmitUpdateCashFlow: updateCashFlowHandlers.onSubmitUpdateCashFlow,
           onSubmitDeleteCashFlow: deleteCashFlowHandlers.onSubmitDeleteCashFlow,
