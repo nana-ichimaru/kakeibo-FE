@@ -9,8 +9,8 @@ export const useGetCashFlowsHandler = () => {
     // APIの結果がまだ入っていない（undefined）場合でも
     // この後の filter / reduce が落ちないように空配列を初期値にする
     data = [],
-    isSuccess,
     isFetching,
+    isError,
   } = useGetCashFlowsQuery({ target_month: targetMonth })
   // 取得したdataからtypeがincomeのものだけを取得したい
   const cashFlows = data.sort((a, b) => b.recordedAt.getTime() - a.recordedAt.getTime())
@@ -30,9 +30,8 @@ export const useGetCashFlowsHandler = () => {
       summary: { totalIncome: totalIncome, totalExpense: totalExpense, total: total },
     },
     handlers: {
-      setTargetMonth
+      setTargetMonth,
     },
-    uiState: { isSuccess: isSuccess, isFetching: isFetching },
+    uiState: { isFetching: isFetching, isError: isError },
   }
 }
-

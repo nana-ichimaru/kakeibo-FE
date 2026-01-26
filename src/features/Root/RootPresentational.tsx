@@ -1,4 +1,4 @@
-import { Box, Container, HStack, Stack, Text } from '@chakra-ui/react'
+import { Box, Container, HStack, Stack, Text, Show, Spinner, VStack } from '@chakra-ui/react'
 import { CashFlowSummaryCard } from './ui/CashFlowSummaryCard'
 import { CashFlowsTab } from './ui/CashFlowsTab'
 import { HEADER_HEIGHT } from '@/share/constants/layout/header'
@@ -36,10 +36,14 @@ interface RootPresentationalProps {
     setTargetUpdateCashFlowId: (data: number | null) => void
     setTargetDeleteCashFlowId: (data: number | null) => void
   }
+  uiState: {
+    isFetching: boolean
+    isError: boolean
+  }
 }
 
 //食べたもの　data
-export const RootPresentational = ({ data, handlers }: RootPresentationalProps) => {
+export const RootPresentational = ({ data, handlers, uiState }: RootPresentationalProps) => {
   return (
     <>
       {/*  ここでは「画面全体の高さ(100vh) から ヘッダーの高さ(HEADER_HEIGHT) を引いた値」を高さにしている
@@ -81,24 +85,34 @@ export const RootPresentational = ({ data, handlers }: RootPresentationalProps) 
             />
           </Box>
           {/* 収支切り替えタブ（収支一覧テーブル表示切り替え） */}
-          <CashFlowsTab
-            data={{
-              income: data.income,
-              expense: data.expense,
-              isUpdateDialogOpen: data.isUpdateDialogOpen,
-              targetUpdateCashFlowId: data.targetUpdateCashFlowId,
-              isDeleteDialogOpen: data.isDeleteDialogOpen,
-              targetDeleteCashFlowId: data.targetDeleteCashFlowId,
-            }}
-            handlers={{
-              onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
-              onSubmitDeleteCashFlow: handlers.onSubmitDeleteCashFlow,
-              setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
-              setIsDeleteDialogOpen: handlers.setIsDeleteDialogOpen,
-              setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId,
-              setTargetDeleteCashFlowId: handlers.setTargetDeleteCashFlowId,
-            }}
-          />
+          <Show
+            when={!uiState.isFetching && !uiState.isError}
+            fallback={
+              <VStack colorPalette='blue'>
+                <Spinner color='colorPalette.500' />
+                <Text color='colorPalette.500'>Loading...</Text>
+              </VStack>
+            }
+          >
+            <CashFlowsTab
+              data={{
+                income: data.income,
+                expense: data.expense,
+                isUpdateDialogOpen: data.isUpdateDialogOpen,
+                targetUpdateCashFlowId: data.targetUpdateCashFlowId,
+                isDeleteDialogOpen: data.isDeleteDialogOpen,
+                targetDeleteCashFlowId: data.targetDeleteCashFlowId,
+              }}
+              handlers={{
+                onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
+                onSubmitDeleteCashFlow: handlers.onSubmitDeleteCashFlow,
+                setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
+                setIsDeleteDialogOpen: handlers.setIsDeleteDialogOpen,
+                setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId,
+                setTargetDeleteCashFlowId: handlers.setTargetDeleteCashFlowId,
+              }}
+            />
+          </Show>
         </Stack>
       </Container>
     </>

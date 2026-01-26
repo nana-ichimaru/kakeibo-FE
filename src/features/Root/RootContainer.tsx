@@ -9,10 +9,15 @@ import { useDeleteCashFlowHandler } from './hooks/handlers/useDeleteCashFlowHand
 // - 状態管理
 // - 取得結果をUIに渡す
 // などをここで行い、表示は RootPresentational に任せる構造
+// presentationに正しくpropsを渡せているかが責務
 export const RootContainer = () => {
   // useGetCashFlowsHandler() 調理
   // data: cashFlowsData　お皿を準備
-  const { data: cashFlowsData, handlers: cashFlowsHandlers } = useGetCashFlowsHandler()
+  const {
+    data: cashFlowsData,
+    handlers: cashFlowsHandlers,
+    uiState: cashFlowsUiState,
+  } = useGetCashFlowsHandler()
   //　これが実際のチラシ
   const { data: createCashFlowData, handlers: createCashFlowHandlers } = useCreateCashFlowHandler()
   const { data: updateCashFlowData, handlers: updateCashFlowHandlers } = useUpdateCashFlowHandler()
@@ -89,6 +94,10 @@ export const RootContainer = () => {
           setIsDeleteDialogOpen: deleteCashFlowHandlers.setIsDeleteDialogOpen,
           setTargetUpdateCashFlowId: updateCashFlowHandlers.setTargetUpdateCashFlowId,
           setTargetDeleteCashFlowId: deleteCashFlowHandlers.setTargetDeleteCashFlowId,
+        }}
+        uiState={{
+          isFetching: cashFlowsUiState.isFetching,
+          isError: cashFlowsUiState.isError
         }}
       />
     </>
