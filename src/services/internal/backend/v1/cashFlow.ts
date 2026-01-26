@@ -1,7 +1,15 @@
 import { internalBackendV1Client } from './client'
 
-import { type GetCashFlowRequestQueryParams, type CreateCashFlowRequest, type UpdateCashFlowRequest } from '@/models/api/internal/v1/request/cashFlow'
-import { type GetCashFlowResponseItem, type CreateCashFlowResponse, type UpdateCashFlowResponse } from '@/models/api/internal/v1/response/cashFlow'
+import {
+  type GetCashFlowRequestQueryParams,
+  type CreateCashFlowRequest,
+  type UpdateCashFlowRequest,
+} from '@/models/api/internal/v1/request/cashFlow'
+import {
+  type GetCashFlowResponseItem,
+  type CreateCashFlowResponse,
+  type UpdateCashFlowResponse,
+} from '@/models/api/internal/v1/response/cashFlow'
 
 export const getCashFlows = async (
   // 呼び出し側から受け取った params を、クエリパラメータとしてAPIに渡す
@@ -30,12 +38,15 @@ export const createCashFlow = async (
   return response.data
 }
 
-//putを書く　
+//putを書く
 export const updateCashFlow = async (
   id: number,
   body: UpdateCashFlowRequest,
 ): Promise<UpdateCashFlowResponse> => {
-  const response = await internalBackendV1Client.put<UpdateCashFlowResponse>(`/cash-flows/${id.toString()}`, body)
+  const response = await internalBackendV1Client.put<UpdateCashFlowResponse>(
+    `/cash-flows/${id.toString()}`,
+    body,
+  )
 
   return response.data
 }
@@ -44,8 +55,6 @@ export const updateCashFlow = async (
 export const deleteCashFlow = async (id: number): Promise<void> => {
   await internalBackendV1Client.delete(`/cash-flows/${id.toString()}`)
 }
-
-
 
 // 非同期通信の流れ
 // javascriptは本来即時実行ですぐに次の処理へと進んでしまう。

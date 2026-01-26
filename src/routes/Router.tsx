@@ -8,7 +8,7 @@ export const AppRouter = () => {
     <>
       <Routes>
         {/* この中に書かれた Route はすべて BaseLayout の <Outlet /> の場所に表示される */}
-        {/* つまり「Header + 各ページの中身」の形になる */} 
+        {/* つまり「Header + 各ページの中身」の形になる */}
         <Route element={<BaseLayout />}>
           <Route path='/' element={<RootContainer />} />
           <Route path='/maguro' element={<p>マグロ</p>} />

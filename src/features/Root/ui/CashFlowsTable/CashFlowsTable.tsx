@@ -35,42 +35,41 @@ export const CashFlowsTable = ({ data, handlers }: CashFlowsTableProps) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.cashFlows
-            .map((item) => (
-              <Table.Row key={item.id}>
-                <Table.Cell>{item.recordedAt.toLocaleDateString()}</Table.Cell>
-                <Table.Cell>{item.title}</Table.Cell>
-                <Table.Cell>{item.amount}</Table.Cell>
-                <Table.Cell>
-                  <CashFlowUpdateDialog
-                    data={{
-                      isUpdateDialogOpen: data.isUpdateDialogOpen,
-                      cashFlow: item,
-                      targetUpdateCashFlowId: data.targetUpdateCashFlowId,
-                    }}
-                    handlers={{
-                      onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
-                      setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
-                      setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId,
-                    }}
-                  />
-                </Table.Cell>
-                <Table.Cell>
-                  <CashFlowDeleteDialog
-                    data={{
-                      isDeleteDialogOpen: data.isDeleteDialogOpen,
-                      cashFlow: item,
-                      targetDeleteCashFlowId: data.targetDeleteCashFlowId,
-                    }}
-                    handlers={{
-                      onSubmitDeleteCashFlow: handlers.onSubmitDeleteCashFlow,
-                      setIsDeleteDialogOpen: handlers.setIsDeleteDialogOpen,
-                      setTargetDeleteCashFlowId: handlers.setTargetDeleteCashFlowId,
-                    }}
-                  />
-                </Table.Cell>
-              </Table.Row>
-            ))}
+          {data.cashFlows.map((item) => (
+            <Table.Row key={item.id}>
+              <Table.Cell>{item.recordedAt.toLocaleDateString()}</Table.Cell>
+              <Table.Cell>{item.title}</Table.Cell>
+              <Table.Cell>{item.amount}</Table.Cell>
+              <Table.Cell>
+                <CashFlowUpdateDialog
+                  data={{
+                    isUpdateDialogOpen: data.isUpdateDialogOpen,
+                    cashFlow: item,
+                    targetUpdateCashFlowId: data.targetUpdateCashFlowId,
+                  }}
+                  handlers={{
+                    onSubmitUpdateCashFlow: handlers.onSubmitUpdateCashFlow,
+                    setIsUpdateDialogOpen: handlers.setIsUpdateDialogOpen,
+                    setTargetUpdateCashFlowId: handlers.setTargetUpdateCashFlowId,
+                  }}
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <CashFlowDeleteDialog
+                  data={{
+                    isDeleteDialogOpen: data.isDeleteDialogOpen,
+                    cashFlow: item,
+                    targetDeleteCashFlowId: data.targetDeleteCashFlowId,
+                  }}
+                  handlers={{
+                    onSubmitDeleteCashFlow: handlers.onSubmitDeleteCashFlow,
+                    setIsDeleteDialogOpen: handlers.setIsDeleteDialogOpen,
+                    setTargetDeleteCashFlowId: handlers.setTargetDeleteCashFlowId,
+                  }}
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))}
         </Table.Body>
       </Table.Root>
     </>

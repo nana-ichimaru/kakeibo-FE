@@ -1,5 +1,5 @@
-import { createBaseClient } from "@/services/base/httpClientFactory";
-import { envConnectionConfig } from "@/core/connection";
+import { createBaseClient } from '@/services/base/httpClientFactory'
+import { envConnectionConfig } from '@/core/connection'
 
 // internal backend API を呼ぶための共通クライアントを作成する
 const client = createBaseClient({
@@ -12,7 +12,7 @@ const client = createBaseClient({
 
   // 10秒以上かかった通信はタイムアウトして失敗させる
   timeout: 10000,
-});
+})
 
 // 他のファイルから使えるように export
-export const internalBackendV1Client = client;
+export const internalBackendV1Client = client

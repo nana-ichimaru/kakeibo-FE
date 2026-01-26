@@ -26,7 +26,6 @@ const isCashFlow = (type: string): type is CashFlow => type in CashFlowTypeJaMap
 export const transformCashFlowTypeJa = (type: string): string =>
   isCashFlow(type) ? CashFlowTypeJaMap[type] : ''
 
-
 // export const transformCashFlowJa = (type: CashFlow): string => {
 //   switch (type) {
 //     case 'income':

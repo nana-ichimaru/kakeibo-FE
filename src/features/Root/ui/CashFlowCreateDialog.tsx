@@ -20,10 +20,7 @@ interface CashFlowCreateDialogProps {
 //     amount: Number(formData.get('amount')),
 //   }
 // }
-export const CashFlowCreateDialog = ({
-  handlers,
-  data,
-}: CashFlowCreateDialogProps) => {
+export const CashFlowCreateDialog = ({ handlers, data }: CashFlowCreateDialogProps) => {
   //   try {
   // エラー出そうな処理
   //   } catch (e) {
@@ -34,7 +31,14 @@ export const CashFlowCreateDialog = ({
     <>
       <Dialog.Root open={data.isCreateDialogOpen}>
         <Dialog.Trigger asChild>
-          <Button onClick={() => {handlers.setIsCreateDialogOpen(true)}} bg={'blue.500'}>+ Add</Button>
+          <Button
+            onClick={() => {
+              handlers.setIsCreateDialogOpen(true)
+            }}
+            bg={'blue.500'}
+          >
+            + Add
+          </Button>
         </Dialog.Trigger>
         <Portal>
           <Dialog.Backdrop />
@@ -105,7 +109,14 @@ export const CashFlowCreateDialog = ({
                 </Dialog.Body>
                 <Dialog.Footer>
                   <Dialog.ActionTrigger asChild>
-                    <Button onClick={() => {handlers.setIsCreateDialogOpen(false)}} bg={'gray.500'}>Close</Button>
+                    <Button
+                      onClick={() => {
+                        handlers.setIsCreateDialogOpen(false)
+                      }}
+                      bg={'gray.500'}
+                    >
+                      Close
+                    </Button>
                   </Dialog.ActionTrigger>
                   <Button type='submit' bg={'blue.500'}>
                     Submit

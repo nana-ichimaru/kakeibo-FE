@@ -10,7 +10,7 @@ import { type CreateCashFlowRequest } from '@/models/api/internal/v1/request/cas
  * - createCashFlow（POST）を実行するための「Mutation」を提供する
  * - 作成に成功したら、一覧取得（useGetCashFlowsQuery）のキャッシュを無効化して
  *   自動で再取得させ、画面の一覧を最新状態にする
- * 
+ *
  */
 export const useCreateCashFlowMutation = () => {
   /**
@@ -26,7 +26,7 @@ export const useCreateCashFlowMutation = () => {
    *
    * - mutate / mutateAsync で mutationFn を実行できる
    * - onSuccess などで成功/失敗時の処理をまとめられる
-   * 
+   *
    * useMutationは、こういう条件で物を作ってと電話をしてくれたら　方法を提供する
    * ピザのチラシのようなもの　関数
    */

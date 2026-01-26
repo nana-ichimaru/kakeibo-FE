@@ -97,7 +97,7 @@ export const RootContainer = () => {
         }}
         uiState={{
           isFetching: cashFlowsUiState.isFetching,
-          isError: cashFlowsUiState.isError
+          isError: cashFlowsUiState.isError,
         }}
       />
     </>
