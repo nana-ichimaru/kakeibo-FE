@@ -25,7 +25,7 @@ export default defineConfig([
       parserOptions: {
         // 型情報を使うために参照する tsconfig を指定
         // strictTypeChecked / stylisticTypeChecked を使う場合は必須になる
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ['./tsconfig.node.json', './tsconfig.app.json', './tsconfig.test.json'],
         // tsconfig の探索起点（このeslint.config.jsの場所）
         tsconfigRootDir: import.meta.dirname,
       },
@@ -55,6 +55,13 @@ export default defineConfig([
 
       // type/interface 強制ルールを無効化（どちらでもOKにする）
       '@typescript-eslint/consistent-type-definitions': 'off',
+    },
+  },
+  {
+    files: ['**/*.test.ts', '**/*.test.tsx'],
+    rules: {
+      '@typescript-eslint/unbound-method': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
     },
   },
 ])

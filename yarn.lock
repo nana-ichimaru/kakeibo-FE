@@ -718,6 +718,13 @@
   resolved "https://registry.yarnpkg.com/@pandacss/is-valid-prop/-/is-valid-prop-1.7.1.tgz#e8cec262c5dd220358f1388a5d62401588275e6c"
   integrity sha512-U95nBIhlj6X26W4U0wEbYcgL0A33zqt7bnfjYQ2+RUGfOK17yKx92OHE/ersiRhMWyuSU0Qhj+5CHlCY2126lQ==
 
+"@playwright/test@^1.58.0":
+  version "1.58.0"
+  resolved "https://registry.yarnpkg.com/@playwright/test/-/test-1.58.0.tgz#7e768ebaadd4db5531fee812d876a0641f4fa10a"
+  integrity sha512-fWza+Lpbj6SkQKCrU6si4iu+fD2dD3gxNHFhUPxsfXBPhnv3rRSQVd0NtBUT9Z/RhF/boCBcuUaMUSTRTopjZg==
+  dependencies:
+    playwright "1.58.0"
+
 "@rolldown/pluginutils@1.0.0-beta.47":
   version "1.0.0-beta.47"
   resolved "https://registry.yarnpkg.com/@rolldown/pluginutils/-/pluginutils-1.0.0-beta.47.tgz#c282c4a8c39f3d6d2f1086aae09a34e6241f7a50"
@@ -2850,6 +2857,11 @@ form-data@^4.0.4:
     hasown "^2.0.2"
     mime-types "^2.1.12"
 
+fsevents@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
+  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
+
 fsevents@~2.3.2, fsevents@~2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
@@ -3661,6 +3673,20 @@ picomatch@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-4.0.3.tgz#796c76136d1eead715db1e7bad785dedd695a042"
   integrity sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==
+
+playwright-core@1.58.0:
+  version "1.58.0"
+  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.58.0.tgz#f0c74217837e5dda1ecfae78e214fe97112c1f97"
+  integrity sha512-aaoB1RWrdNi3//rOeKuMiS65UCcgOVljU46At6eFcOFPFHWtd2weHRRow6z/n+Lec0Lvu0k9ZPKJSjPugikirw==
+
+playwright@1.58.0:
+  version "1.58.0"
+  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.58.0.tgz#f0a0d9b6b93d153338951ac7fb9dd8d0ea256e53"
+  integrity sha512-2SVA0sbPktiIY/MCOPX8e86ehA/e+tDNq+e5Y8qjKYti2Z/JG7xnronT/TXTIkKbYGWlCbuucZ6dziEgkoEjQQ==
+  dependencies:
+    playwright-core "1.58.0"
+  optionalDependencies:
+    fsevents "2.3.2"
 
 possible-typed-array-names@^1.0.0:
   version "1.1.0"
